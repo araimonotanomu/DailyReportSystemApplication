@@ -28,7 +28,7 @@ public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotEmpty
-    private String id;
+    private Integer id;
     
     // 日付
     @NotNull
@@ -47,18 +47,18 @@ public class Report {
     // 社員番号
     @ManyToOne
     @JoinColumn(name = "employee_code", columnDefinition="VARCHAR(10)", nullable = false, referencedColumnName = "code")
-    private String employeeCode;
+    private Employee employee;
     
- // 削除フラグ
+    // 削除フラグ
     @Column(columnDefinition="TINYINT", nullable = false)
     private boolean deleteFlg; 
     
- // 登録日時
+    // 登録日時
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
     // 更新日時
     @Column(nullable = false)
     private LocalDateTime updatedAt;
-    
+
 }

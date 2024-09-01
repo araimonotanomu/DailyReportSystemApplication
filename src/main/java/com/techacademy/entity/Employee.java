@@ -72,7 +72,7 @@ public class Employee {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
     
-    // 日報テーブルとのリレーション
+    // 従業員ごとの日報リスト
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<Report> reportList;
 

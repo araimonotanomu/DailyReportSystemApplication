@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.techacademy.service.ReportService;
@@ -27,6 +28,14 @@ public class ReportController {
         model.addAttribute("reportList", reportService.findAll());
         
         return "reports/list";
+    }
+    
+    // 日報詳細画面
+    @GetMapping(value = "/{ID}")
+    public String detail(@PathVariable Integer id, Model model) {
+        
+        model.addAttribute("report", reportService.findById(id));
+        return "reports/detail";
     }
 
 }

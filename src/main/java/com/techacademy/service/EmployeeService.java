@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.techacademy.constants.ErrorKinds;
 import com.techacademy.entity.Employee;
+import com.techacademy.entity.Report;
 import com.techacademy.repository.EmployeeRepository;
 
 @Service
@@ -20,6 +21,7 @@ public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
     private final PasswordEncoder passwordEncoder;
+    private ReportService reportService;
 
     @Autowired
     public EmployeeService(EmployeeRepository employeeRepository, PasswordEncoder passwordEncoder) {
@@ -95,6 +97,14 @@ public class EmployeeService {
         employee.setUpdatedAt(now);
         employee.setDeleteFlg(true);
 
+        // 削除対象の従業員の日報のリストを取得
+        List<Report> reportList = reportService.findByEmployee((Iterable<Integer>) employee);
+        
+        // 日報のリスト（reportList）を拡張for文を使って繰り返し
+        for (Report report:reportList) {
+            reportService.delete(report.getId());
+        }
+        
         return ErrorKinds.SUCCESS;
     }
 
