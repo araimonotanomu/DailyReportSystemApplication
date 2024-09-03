@@ -24,18 +24,30 @@ public class ReportController {
     @GetMapping
     public String list(Model model) {
         
-        model.addAttribute("ListSize", reportService.findAll().size());
         model.addAttribute("reportList", reportService.findAll());
+        model.addAttribute("ListSize", reportService.findAll().size());
         
         return "reports/list";
     }
     
     // 日報詳細画面
-    @GetMapping(value = "/{ID}")
+    @GetMapping(value = "/{id}/")
     public String detail(@PathVariable Integer id, Model model) {
         
         model.addAttribute("report", reportService.findById(id));
         return "reports/detail";
     }
+    
+    // 日報更新画面
+    @GetMapping(value="{id}/update")
+    public String edit(@PathVariable("id") Integer id, Model model) {
+        
+        if ( id != null ) {
+            model.addAttribute("report", reportService.findById(id));
+        }
+        
+        return "reports/update";
+    }
+    
 
 }
