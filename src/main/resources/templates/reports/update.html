@@ -22,15 +22,15 @@
                             <div class="mb-3">
                                 <label class="form-label" for="reportDate">日付</label>
                                 <p class="mb-1"></p>
-                                <div class="col-md-7">
-                                    <input class="form-control" type="text" th:field="*{reportDate}" th:text=*{reportDate} th:errorclass="err" id="id">
+                                <div class="col-md-4">
+                                    <input class="form-control" type="date" th:field="*{reportDate}" th:errorclass="err" id="reportDate">
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="employee.name">氏名</label>
                                 <p class="mb-1"></p>
                                 <div class="col-md-7">
-                                    <input class="form-control" type="hidden" th:field="*{employee.name}" id="employee.name">
+                                    <input class="form-control" type="hidden" th:field="*{employee.name}" th:text=*{employee.name} id="employee.name">
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -43,10 +43,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="content">内容</label>
                                 <p class="mb-1"></p>
-                                <div class="col-md-4">
-                                    <pre>
-                                    <input class="form-control" th:field="*{content}" th:errorclass="err" id="content">
-                                    </pre>
+                                <div>
+                                    <textarea cols="120" rows="8" wrap="soft" th:field="*{content}" maxlength="600" th:errorclass="err" id="content"></textarea>
                                 </div>
                             </div>                                    
                         </div>
