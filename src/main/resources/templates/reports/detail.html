@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html class="h-100" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="common/header :: head_fragment(title=日報詳細)"></head>
+<head th:replace="(~{common/header :: head_fragment(title=日報詳細)})"></head>
 
 <body class="h-100 overflow-hidden">
     <div class="row h-100">
         <div class="h-100 p-3 mb-2 bg-dark text-white col-sm-2">
-            <nav th:replace="common/side :: copy"></nav>
+            <nav th:replace="(~{common/side :: copy})"></nav>
         </div>
 
         <div class="mt-3 h-100 col-sm-10">
@@ -55,7 +55,7 @@
                                         <a th:href="@{/reports/{id}/update(id=${report.id})}" class="btn btn-primary">更新</a>
                                     </div>
                                     <div class="col-auto">
-                                        <form name="form" th:action="@{/reports/{code}/delete(code=${code})}" th:method="post">
+                                        <form name="form" th:action="@{/reports/{id}/delete(id=${id})}" th:method="post">
                                             <input type="submit" value="削除" class="btn btn-primary">
                                         </form>
                                     </div>

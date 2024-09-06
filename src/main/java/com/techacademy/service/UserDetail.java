@@ -29,7 +29,8 @@ public class UserDetail implements UserDetails {
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<? extends GrantedAuthority> getAuthorities() {  
+        // 権限リストを返す
         return authorities;
     }
 

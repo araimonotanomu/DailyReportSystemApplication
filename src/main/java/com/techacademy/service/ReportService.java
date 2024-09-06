@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.techacademy.constants.ErrorKinds;
+import com.techacademy.entity.Employee;
 import com.techacademy.entity.Report;
 import com.techacademy.repository.ReportRepository;
 
@@ -27,8 +27,11 @@ public class ReportService {
     
     // 日報保存
     @Transactional
-    public ErrorKinds save(Report report) {
+    public Report save(Report report, UserDetail userDetail) {
         
+        Employee employee = userDetail.getEmployee();
+        report.setEmployee(employee);
+                
         report.setDeleteFlg(false);
         
         LocalDateTime now = LocalDateTime.now();
@@ -36,27 +39,29 @@ public class ReportService {
         report.setUpdatedAt(now);
         
         reportRepository.save(report);
-        return ErrorKinds.SUCCESS;
+        return report;  
     }
     
     // 日報更新
     @Transactional
-    public ErrorKinds update(Report report, Integer id) {
+    public Report update(Report report, Integer id, UserDetail userDetail) {
         
         LocalDateTime now = LocalDateTime.now();
         Report beforeReport = findById(id);
         report.setCreatedAt(beforeReport.getCreatedAt());
         report.setUpdatedAt(now);
+        report.setEmployee(userDetail.getEmployee());
         
         reportRepository.save(report);
-        return ErrorKinds.SUCCESS;
         
+        return report;
     }
     
     // 日報削除
-    public ErrorKinds delete(Integer id) {
-        return null;
+    public String delete(Integer id) {
         
+        reportRepository.deleteById(id);
+        return null;
     }
     
     // 日報一覧表示処理
