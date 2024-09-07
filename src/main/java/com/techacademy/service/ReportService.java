@@ -9,7 +9,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.techacademy.entity.Employee;
 import com.techacademy.entity.Report;
 import com.techacademy.repository.ReportRepository;
 
@@ -28,15 +27,6 @@ public class ReportService {
     // 日報保存
     @Transactional
     public Report save(Report report, UserDetail userDetail) {
-        
-        Employee employee = userDetail.getEmployee();
-        report.setEmployee(employee);
-                
-        report.setDeleteFlg(false);
-        
-        LocalDateTime now = LocalDateTime.now();
-        report.setCreatedAt(now);
-        report.setUpdatedAt(now);
         
         reportRepository.save(report);
         return report;  

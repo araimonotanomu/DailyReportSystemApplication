@@ -28,7 +28,6 @@ public class Report {
     // ID
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Integer id;
     
     // 日付

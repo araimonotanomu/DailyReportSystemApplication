@@ -1,5 +1,7 @@
 package com.techacademy.controller;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -68,6 +70,15 @@ public class ReportController {
     // 日報新規登録処理
     @PostMapping(value = "/add")
     public String add(@Validated Report report, BindingResult res, @AuthenticationPrincipal UserDetail userDetail, Model model) {
+        
+        Employee employee = userDetail.getEmployee();
+        report.setEmployee(employee);
+                
+        report.setDeleteFlg(false);
+        
+        LocalDateTime now = LocalDateTime.now();
+        report.setCreatedAt(now);
+        report.setUpdatedAt(now);
         
         if (res.hasErrors()) {
             return create(report, userDetail, model);
