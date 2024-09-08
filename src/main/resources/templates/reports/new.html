@@ -25,6 +25,7 @@
                                         <p class="mb-1"></p>
                                         <div class="col-md-4">
                                             <input class="form-control" type="date" th:field="*{reportDate}" th:errorclass="err" id="reportDate">
+                                            <p th:unless="${#strings.isEmpty(DateDuplicate)}" th:text="'既に登録されている日付です'" class="text-danger"></p>
                                             <span th:errors="*{reportDate}" class="text-danger"></span>
                                         </div>
                                     </div>

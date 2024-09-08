@@ -1,6 +1,8 @@
 package com.techacademy.controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -69,7 +71,7 @@ public class ReportController {
     
     // 日報新規登録処理
     @PostMapping(value = "/add")
-    public String add(@Validated Report report, BindingResult res, @AuthenticationPrincipal UserDetail userDetail, Model model) {
+    public String add(@Validated Report report, BindingResult res, Integer id, @AuthenticationPrincipal UserDetail userDetail, Model model) {
         
         Employee employee = userDetail.getEmployee();
         report.setEmployee(employee);
@@ -83,8 +85,20 @@ public class ReportController {
         if (res.hasErrors()) {
             return create(report, userDetail, model);
             
+         // 登録済の日報の日付との重複チェック    
         } else {
-         reportService.save(report, userDetail);
+            String DateDuplicate = "DateDuplicate";
+            List<LocalDate> ReportDateList = null;
+            List<Report> ReportList = reportService.findAllByEmployee(employee, userDetail);
+            for (Report EachReport:ReportList) {
+                ReportDateList.add(EachReport.getReportDate());
+            }
+            if (ReportDateList.contains(report.getReportDate())) {
+                model.addAttribute("DateDuplicate", DateDuplicate);
+                return create(report, userDetail, model);
+            }
+            
+            reportService.save(report, userDetail);
         }
         
         return "redirect:/reports";

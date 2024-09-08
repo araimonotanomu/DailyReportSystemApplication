@@ -24,9 +24,10 @@ public class EmployeeService {
     private ReportService reportService;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository, PasswordEncoder passwordEncoder) {
+    public EmployeeService(EmployeeRepository employeeRepository, PasswordEncoder passwordEncoder, ReportService reportService) {
         this.employeeRepository = employeeRepository;
         this.passwordEncoder = passwordEncoder;
+        this.reportService = reportService;
     }
 
     // 従業員保存
@@ -98,7 +99,7 @@ public class EmployeeService {
         employee.setDeleteFlg(true);
 
         // 削除対象の従業員の日報のリストを取得
-        List<Report> reportList = reportService.findByEmployee((Iterable<Integer>) employee);
+        List<Report> reportList = reportService.findAllByCode(employee);
         
         // 日報のリスト（reportList）を拡張for文を使って繰り返し
         for (Report report:reportList) {

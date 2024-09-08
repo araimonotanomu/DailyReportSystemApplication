@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.techacademy.entity.Employee;
 import com.techacademy.entity.Report;
 import com.techacademy.repository.ReportRepository;
 
@@ -26,7 +27,7 @@ public class ReportService {
     
     // 日報保存
     @Transactional
-    public Report save(Report report, UserDetail userDetail) {
+    public Report save(Report report,  UserDetail userDetail) {
         
         reportRepository.save(report);
         return report;  
@@ -67,8 +68,17 @@ public class ReportService {
         return report;
     }
     
-    // ある従業員の日報のリストを取得
-    public List<Report> findByEmployee(Iterable<Integer> id) {
-        return reportRepository.findAllById(id);
+    // ログイン中の従業員の日報のリストを取得
+    public List<Report> findAllByEmployee(Employee employee, UserDetail userDetail) {
+        Employee loggedInEmployee = userDetail.getEmployee();
+        List<Report> ReportList = reportRepository.findByEmployee(loggedInEmployee);
+        return ReportList;
     }
+    
+    // 他の従業員の日報のリストを取得
+    public List<Report> findAllByCode(Employee employee){
+        List<Report> ReportList = reportRepository.findByEmployee(employee);
+        return ReportList;
+    }
+    
 }
