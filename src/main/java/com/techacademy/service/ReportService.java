@@ -77,8 +77,15 @@ public class ReportService {
     
     // 他の従業員の日報のリストを取得
     public List<Report> findAllByCode(Employee employee){
-        List<Report> ReportList = reportRepository.findByEmployee(employee);
-        return ReportList;
+        List<Report> reportList = reportRepository.findByEmployee(employee);
+        return reportList;
+    }
+    
+    // ログイン中の従業員の日報の日付のリストを取得
+    public List<String> findReportDateByEmployee(String code, Employee employee, UserDetail userDetail) {
+        String code1 = userDetail.getEmployee().getCode();
+        return reportRepository.findReportDateByCode(code1);
+        
     }
     
 }
