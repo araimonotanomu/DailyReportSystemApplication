@@ -42,7 +42,7 @@ public class ReportController {
         Employee employee = userDetail.getEmployee();
         String role = employee.getRole().toString();
         
-        if ( role == "ADMIN") {
+        if ( role.equals("ADMIN")) {
             model.addAttribute("reportList", reportService.findAll());
             model.addAttribute("ListSize", reportService.findAll().size());
             
