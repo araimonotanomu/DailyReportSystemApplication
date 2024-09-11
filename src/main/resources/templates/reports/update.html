@@ -47,7 +47,7 @@
                                 <label class="form-label" for="content">内容</label>
                                 <p class="mb-1"></p>
                                 <div>
-                                    <textarea cols="70" rows="8" wrap="soft" th:field="*{content}" maxlength="600" th:errorclass="err" id="content"></textarea>
+                                    <textarea cols="70" rows="8" wrap="soft" th:field="*{content}" th:errorclass="err" id="content"></textarea>
                                     <br>
                                     <span th:errors="*{content}" class="text-danger"></span>
                                 </div>
